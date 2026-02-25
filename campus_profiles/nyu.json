@@ -1,0 +1,16 @@
+{
+  "campus_id": "nyu",
+  "school_name": "New York University",
+  "school_aliases": ["NYU", "Violets"],
+  "city": "New York",
+  "region_aliases": ["NYC", "Manhattan", "Greenwich Village", "Washington Square", "East Village", "SoHo", "Brooklyn"],
+  "content_categories": ["NYU_EVENT", "NYC_EVENT", "FOOD_DRINK", "SPORTS", "CAREER", "CULTURE", "HOUSING", "CLUBS"],
+  "weekly_constraints": {
+    "final_picks": 8,
+    "min_NYU_EVENT": 2,
+    "min_NYC_EVENT": 2,
+    "max_FOOD_DRINK": 2,
+    "max_HOUSING": 2,
+    "max_CLUBS": 2
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "campus_id": "uw",
+  "school_name": "University of Washington",
+  "school_aliases": ["UW", "Washington", "Huskies", "U-Dub"],
+  "city": "Seattle",
+  "region_aliases": ["Seattle", "U-District", "Capitol Hill", "Fremont", "Ballard", "Downtown Seattle"],
+  "content_categories": ["UW_EVENT", "SEATTLE_EVENT", "FOOD_DRINK", "SPORTS", "CAREER", "CULTURE", "HOUSING", "CLUBS"],
+  "weekly_constraints": {
+    "final_picks": 8,
+    "min_UW_EVENT": 2,
+    "min_SEATTLE_EVENT": 2,
+    "max_FOOD_DRINK": 2,
+    "max_HOUSING": 2,
+    "max_CLUBS": 2
+  }
+}

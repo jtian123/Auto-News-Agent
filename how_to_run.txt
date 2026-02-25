@@ -1,0 +1,20 @@
+Option A: Run full pipeline + generate posters                                                                                  
+                                                                                                                                  
+  cd /Users/jinyaotian/Desktop/Auto-News-Agent                                                                                    
+  source .venv/bin/activate                                                                                                       
+  export GEMINI_API_KEY=your_key_here                                                                                             
+                                                                                                                                  
+  # Run pipeline and generate posters for a campus                                                                                
+  PYTHONPATH=src python -m auto_news_agent.cli --campus ucla --generate-posters                                                   
+                                                                                                                                  
+  Option B: Generate posters from existing digest (skip pipeline)                                                                 
+                                                                                                                                  
+  cd /Users/jinyaotian/Desktop/Auto-News-Agent                                                                                    
+  source .venv/bin/activate                                                                                                       
+  export GEMINI_API_KEY=AIzaSyAoPr3j7rmkjd0AaxBkEz7AeD07Gb1SuXg                                                                                             
+                                                                                                                                  
+  # Use an existing digest file                                                                                                   
+  PYTHONPATH=src python -m auto_news_agent.cli --posters-only outputs/ucla_weekly_digest_2026-01-23.json --campus ucla  
+
+Available campuses: usc_la, ucla, ucb, uw, columbia, nyu, stanford 
+

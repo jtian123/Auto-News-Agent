@@ -1,0 +1,16 @@
+{
+  "campus_id": "stanford",
+  "school_name": "Stanford University",
+  "school_aliases": ["Stanford", "Cardinal"],
+  "city": "Palo Alto",
+  "region_aliases": ["Bay Area", "SF", "San Francisco", "Silicon Valley", "Mountain View", "Menlo Park"],
+  "content_categories": ["STANFORD_EVENT", "BAY_EVENT", "FOOD_DRINK", "SPORTS", "CAREER", "CULTURE", "HOUSING", "CLUBS"],
+  "weekly_constraints": {
+    "final_picks": 8,
+    "min_STANFORD_EVENT": 2,
+    "min_BAY_EVENT": 2,
+    "max_FOOD_DRINK": 2,
+    "max_HOUSING": 2,
+    "max_CLUBS": 2
+  }
+}

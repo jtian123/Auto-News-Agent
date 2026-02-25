@@ -1,0 +1,16 @@
+{
+  "campus_id": "columbia",
+  "school_name": "Columbia University",
+  "school_aliases": ["Columbia", "Lions", "CU"],
+  "city": "New York",
+  "region_aliases": ["NYC", "Manhattan", "Morningside Heights", "Harlem", "Upper West Side", "Midtown"],
+  "content_categories": ["COLUMBIA_EVENT", "NYC_EVENT", "FOOD_DRINK", "SPORTS", "CAREER", "CULTURE", "HOUSING", "CLUBS"],
+  "weekly_constraints": {
+    "final_picks": 8,
+    "min_COLUMBIA_EVENT": 2,
+    "min_NYC_EVENT": 2,
+    "max_FOOD_DRINK": 2,
+    "max_HOUSING": 2,
+    "max_CLUBS": 2
+  }
+}

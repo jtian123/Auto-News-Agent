@@ -1,0 +1,16 @@
+{
+  "campus_id": "ucla",
+  "school_name": "University of California, Los Angeles",
+  "school_aliases": ["UCLA", "Bruins"],
+  "city": "Los Angeles",
+  "region_aliases": ["LA", "Westwood", "West LA", "Santa Monica", "Beverly Hills", "Brentwood"],
+  "content_categories": ["UCLA_EVENT", "LA_EVENT", "FOOD_DRINK", "SPORTS", "CAREER", "CULTURE", "HOUSING", "CLUBS"],
+  "weekly_constraints": {
+    "final_picks": 8,
+    "min_UCLA_EVENT": 2,
+    "min_LA_EVENT": 2,
+    "max_FOOD_DRINK": 2,
+    "max_HOUSING": 2,
+    "max_CLUBS": 2
+  }
+}

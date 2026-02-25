@@ -1,0 +1,16 @@
+{
+  "campus_id": "usc_la",
+  "school_name": "University of Southern California",
+  "school_aliases": ["USC", "Trojans", "SC"],
+  "city": "Los Angeles",
+  "region_aliases": ["LA", "Downtown LA", "DTLA", "Koreatown", "Culver City", "Santa Monica"],
+  "content_categories": ["USC_EVENT", "LA_EVENT", "FOOD_DRINK", "SPORTS", "CAREER", "CULTURE", "HOUSING", "CLUBS"],
+  "weekly_constraints": {
+    "final_picks": 8,
+    "min_USC_EVENT": 2,
+    "min_LA_EVENT": 2,
+    "max_FOOD_DRINK": 2,
+    "max_HOUSING": 2,
+    "max_CLUBS": 2
+  }
+}

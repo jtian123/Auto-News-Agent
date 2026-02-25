@@ -1,0 +1,335 @@
+# Project: Multi-Campus Culture Intelligence Agent
+Prototype focus: USC / Los Angeles
+Architecture: Parallelized subagents + Aggregator
+Primary data source: Google Gemini Web Search tools
+
+============================================================
+0) CORE IDEA
+============================================================
+
+This system is a GENERAL culture-intelligence engine that operates
+based on a CAMPUS PROFILE.
+
+- Core engine = stable, reusable
+- Campus profile = config that defines:
+  • school identity
+  • geography
+  • trusted sources
+  • query templates
+  • scoring weights
+  • output tone & visual style
+
+USC/LA is the first campus profile.
+
+============================================================
+1) HIGH-LEVEL FLOW
+============================================================
+
+Weekly run (per campus profile):
+
+1) Load campus profile (usc_la.json)
+2) Spawn subagents in parallel using profile-defined queries
+3) Each subagent returns structured candidate items
+4) Aggregator:
+   - dedupes
+   - scores
+   - enforces category diversity
+5) Select final 6–10 items
+6) Generate:
+   - poster text (space-constrained)
+   - Nano Banana poster prompts
+   - Instagram captions
+7) Export artifacts
+
+============================================================
+2) CORE DATA SCHEMAS
+============================================================
+
+2.1 CandidateItem (subagent output)
+{
+  "id": "string",
+  "title": "string (<= 70 chars)",
+  "hook": "string (<= 140 chars)",
+  "what": "string (1 sentence)",
+  "when": "string (human readable)",
+  "where": "string",
+  "why_students_care": "string (<= 180 chars)",
+  "category": "enum",
+  "posterability": "int 1-5",
+  "freshness_days": "int",
+  "source_links": ["url"],
+  "source_names": ["string"],
+  "confidence": "float 0-1",
+  "tags": ["string"],
+  "visual_motif": "string"
+}
+
+2.2 FinalPick (aggregator output)
+{
+  ...CandidateItem,
+  "score": "float 0-100",
+  "poster_text": {
+    "headline": "string <=32",
+    "subhead": "string <=45",
+    "details_line1": "string <=40",
+    "details_line2": "string <=40",
+    "footer": "string <=30"
+  },
+  "nano_banana_prompt": "string",
+  "ig_caption": "string"
+}
+
+============================================================
+3) CAMPUS PROFILE SCHEMA
+============================================================
+
+Each campus is defined by ONE JSON file.
+
+File: `campus_profiles/usc_la.json`
+
+{
+  "campus_id": "usc_la",
+  "school_name": "University of Southern California",
+  "school_aliases": ["USC", "Trojans", "SC"],
+  "city": "Los Angeles",
+  "region_aliases": [
+    "LA", "Downtown LA", "DTLA",
+    "Koreatown", "Culver City",
+    "Santa Monica", "Pasadena"
+  ],
+  "transit_keywords": ["Expo Line", "E Line", "Metro"],
+  "content_categories": [
+    "USC_EVENT",
+    "LA_EVENT",
+    "FOOD_DRINK",
+    "SPORTS",
+    "CAREER",
+    "CULTURE",
+    "TRANSIT_SAFETY"
+  ],
+  "trusted_domains": [
+    "usc.edu",
+    "athletics.usc.edu",
+    "lametro.net",
+    "ladot.lacity.org",
+    "eventbrite.com",
+    "dice.fm",
+    "axs.com",
+    "major venue sites",
+    "reputable LA local news"
+  ],
+  "weekly_constraints": {
+    "final_picks": 8,
+    "min_USC_EVENT": 2,
+    "min_LA_EVENT": 2,
+    "max_FOOD_DRINK": 2,
+    "max_TRANSIT_SAFETY": 1
+  },
+  "scoring_weights": {
+    "relevance": 0.25,
+    "excitement": 0.20,
+    "freshness": 0.15,
+    "credibility": 0.20,
+    "posterability": 0.20
+  },
+  "poster_style": {
+    "brand": "Apateu",
+    "visual_vibe": "cute, clean, student-friendly",
+    "aspect_ratio": "4:5",
+    "do_not_use": ["official USC logos"]
+  },
+  "caption_tone": "USC student, friendly, non-salesy"
+}
+
+============================================================
+4) SUBAGENTS (PARALLELIZED)
+============================================================
+
+Subagents are GENERAL.
+Their behavior is driven by campus profile + query templates.
+
+Each subagent:
+- runs 3–6 Gemini web searches
+- extracts CandidateItems
+- returns JSON list
+
+------------------------------------------------------------
+4.1 USC_OFFICIAL_EVENTS
+------------------------------------------------------------
+Query templates:
+- "site:usc.edu events this week"
+- "{SCHOOL_ALIAS} student events calendar this week"
+- "{SCHOOL_ALIAS} workshop networking free this week"
+
+Extraction rules:
+- Must include date + location
+- Prefer official USC pages
+- Drop vague announcements
+
+------------------------------------------------------------
+4.2 USC_SPORTS
+------------------------------------------------------------
+Query templates:
+- "{SCHOOL_ALIAS} Trojans game this week"
+- "{SCHOOL_ALIAS} athletics schedule upcoming"
+
+Extraction rules:
+- Only 1–2 biggest games
+- Emphasize home games or major rivals
+
+------------------------------------------------------------
+4.3 LA_EVENTS_POPUPS
+------------------------------------------------------------
+Query templates:
+- "{CITY} pop-up event this weekend"
+- "{CITY} festival this week"
+- "{CITY} concert this week under $30"
+
+Extraction rules:
+- Prefer transit-accessible events
+- Avoid generic “top 20” lists
+
+------------------------------------------------------------
+4.4 FOOD_DRINK_NEAR_CAMPUS
+------------------------------------------------------------
+Query templates:
+- "new restaurant near {SCHOOL_ALIAS}"
+- "{CITY} food pop-up this weekend"
+- "student food deals {CITY}"
+
+Extraction rules:
+- Max 2 candidates
+- Must feel special / time-limited
+
+------------------------------------------------------------
+4.5 TRANSIT_SAFETY
+------------------------------------------------------------
+Query templates:
+- "{CITY} Metro service advisory this week"
+- "street closure near {SCHOOL_ALIAS}"
+
+Extraction rules:
+- Only official sources
+- Drop minor disruptions
+
+------------------------------------------------------------
+4.6 CULTURE_TREND_SCAN
+------------------------------------------------------------
+Query templates:
+- "{SCHOOL_ALIAS} viral event this week"
+- "{SCHOOL_ALIAS} campus trend"
+
+Extraction rules:
+- Must be corroborated
+- Skip rumors / unverifiable memes
+
+============================================================
+5) AGGREGATOR LOGIC
+============================================================
+
+5.1 Deduplication
+Duplicate if:
+- same event name + date + venue
+- or share canonical official link
+
+Keep version with:
+- higher confidence
+- clearer date/time
+- better posterability
+
+------------------------------------------------------------
+5.2 Scoring (0–100)
+------------------------------------------------------------
+
+freshness_score = max(0, 1 - freshness_days / 8)
+
+credibility_score:
+- +0.4 official domain
+- +0.2 reputable venue/news
+- +0.2 multiple sources
+- capped at 1.0
+
+posterability_score = posterability / 5
+
+score =
+  100 * (
+    w.relevance * relevance +
+    w.excitement * excitement +
+    w.freshness * freshness_score +
+    w.credibility * credibility_score +
+    w.posterability * posterability_score
+  )
+
+------------------------------------------------------------
+5.3 Selection
+------------------------------------------------------------
+- Sort by score desc
+- Enforce weekly_constraints from campus profile
+- Select final_picks
+
+============================================================
+6) POSTER + PROMPT GENERATION
+============================================================
+
+6.1 Poster Text Rules
+- Minimal text
+- Date + place always visible
+- Designed for small-screen glance
+
+6.2 Nano Banana Prompt Template
+"""
+Create a cute, high-detail poster for USC students.
+Style: {poster_style.visual_vibe}
+Aspect ratio: 4:5
+
+Headline: "{headline}"
+Subhead: "{subhead}"
+Details:
+- {details_line1}
+- {details_line2}
+
+Footer: "{footer}"
+
+Visual motif: {visual_motif}
+No official logos. Clean layout. High contrast.
+"""
+
+------------------------------------------------------------
+6.3 Instagram Caption Template
+------------------------------------------------------------
+- 1 hook line
+- 2 short info lines
+- soft CTA (save / send / check out)
+- subtle brand line once:
+  "Weekly USC x LA picks by Apateu"
+
+============================================================
+7) EXPORTS
+============================================================
+
+Outputs per run:
+- weekly_digest.json
+- poster_briefs/*.json
+- nano_banana_prompts.txt
+- ig_captions.txt
+
+============================================================
+8) SAFETY & QUALITY GUARDRAILS
+============================================================
+
+Drop item if:
+- missing date or location
+- confidence < 0.5
+- only one low-quality source
+- sensitive or unverifiable
+
+============================================================
+9) WHY THIS SCALES
+============================================================
+
+To add a new campus:
+- create new campus_profile.json
+- reuse all logic
+- no prompt rewrites required
+
+USC/LA is just the first instance.

@@ -1,0 +1,25 @@
+[project]
+name = "auto-news-agent"
+version = "0.1.0"
+description = "Multi-Campus culture intelligence agent with Gemini search"
+authors = [{name = "Auto News Agent"}]
+requires-python = ">=3.10"
+dependencies = [
+  "google-genai>=0.3.0",
+  "python-dotenv>=1.0",
+  "python-dateutil>=2.9"
+]
+
+[project.scripts]
+auto-news-agent = "auto_news_agent.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["auto_news_agent*"]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"

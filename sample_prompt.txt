@@ -1,0 +1,71 @@
+Create a high-detail LEGO voxel–style illustrated poster for students at USC in Los Angeles.
+
+CANVAS & LAYOUT:
+- Aspect ratio: 4:5 (Instagram feed format)
+- Vertical poster divided into TWO stacked horizontal sections
+- Top section = Event 1
+- Bottom section = Event 2
+- Clean background with clear separation between sections
+
+OVERALL STYLE:
+- LEGO voxel / block-based 3D style
+- Clearly visible cubic LEGO-like blocks and studs
+- USC campus and LA city style
+- Text must be readable on a phone screen
+
+================================================
+TOP SECTION — EVENT 1
+================================================
+
+EVENT DETAILS:
+- Title: USC Career Center Spring Career Fair 2026
+- Date: February 5, 2026
+- Time: 11:00 AM – 3:00 PM
+- Venue: Trousdale Parkway
+- Cost: Free
+- Description: Large career fair with employers recruiting for full-time, part-time, and internship positions.
+
+TEXT OVERLAY (top-aligned within this section):
+- Large bold title:
+  "USC Career Center Spring Career Fair 2026"
+- Medium text:
+  "Feb 5, 2026 · 11:00 AM – 3:00 PM"
+- Small text:
+  "Trousdale Parkway"
+- Small badge:
+  "Free"
+
+================================================
+BOTTOM SECTION — EVENT 2
+================================================
+
+EVENT DETAILS:
+- Title: USC Internship Expo Spring 2026
+- Date: February 4, 2026
+- Time: 2:00 PM – 4:30 PM
+- Venue: Trousdale Parkway
+- Cost: Free
+- Description: Internship expo featuring employers from various organizations.
+
+TEXT OVERLAY (top-aligned within this section):
+- Large bold title:
+  "USC Internship Expo Spring 2026"
+- Medium text:
+  "Feb 4, 2026 · 2:00 PM – 4:30 PM"
+- Small text:
+  "Trousdale Parkway"
+- Small badge:
+  "Free"
+
+================================================
+FOOTER
+================================================
+
+- Small, subtle footer text at the bottom:
+  "This week at USC · Los Angeles"
+
+FINAL RENDERING NOTES:
+- LEGO voxel blocks must be clearly visible
+- Scenes should feel handcrafted and playful, not photorealistic
+- Balanced spacing so text does not overlap important visuals
+- Instagram-ready, clean composition
