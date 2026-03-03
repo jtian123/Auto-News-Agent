@@ -10,7 +10,7 @@ from typing import List, Dict, Any, Optional, Tuple
 class GeminiSearchClient:
     """Wrapper around google-genai with Google Search grounding and structured JSON output."""
 
-    def __init__(self, api_key: str | None = None, model: str = "gemini-2.0-flash"):
+    def __init__(self, api_key: str | None = None, model: str = "gemini-3-flash"):
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
         self.model_name = model
         self.client = None

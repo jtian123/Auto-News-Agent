@@ -109,7 +109,7 @@ Generates Instagram-ready poster images (4:5 aspect ratio) using Gemini 3 Pro Im
 1. Load events from weekly digest JSON
 2. Pair events by similar category (e.g., two LA_EVENTs together)
 3. Generate dynamic prompt for each pair with LEGO voxel style
-4. Call `gemini-3-pro-image-preview` model for image generation
+4. Call `gemini-3.1-flash-image-preview` model for image generation
 5. Save PNG images and text prompts
 
 **Poster Design:**
@@ -170,8 +170,8 @@ Generated in `outputs/posters/` (when using `--generate-posters` or `--posters-o
 1. **Search tool incompatibility**: Cannot use `response_mime_type="application/json"` with Google Search grounding tool. Must parse JSON from text response instead.
 
 2. **Model selection**:
-   - Search/text: `gemini-2.0-flash` (with `google_search` tool)
-   - Image generation: `gemini-3-pro-image-preview`
+   - Search/text: `gemini-3-flash` (with `google_search` tool)
+   - Image generation: `gemini-3.1-flash-image-preview`
 
 3. **Grounding response**: Source URLs come from `response.candidates[0].grounding_metadata.grounding_chunks`, not the text content.
 

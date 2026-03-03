@@ -244,7 +244,7 @@ class ImageGenerator:
     def __init__(self, api_key: str | None = None):
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
         self.client = None
-        self.model_name = "gemini-3-pro-image-preview"
+        self.model_name = "gemini-3.1-flash-image-preview"
 
         if not self.api_key:
             print("[warn] GEMINI_API_KEY is missing; image generation is disabled.")
